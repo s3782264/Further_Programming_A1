@@ -2,12 +2,14 @@ package model.interfaces;
 
 public class DicePairImpl implements DicePair
 {
-	private int numFaces = 6;
-	
+	private int numFaces = 6, value1, value2, total;
+	private DieImpl die1, die2;
 	public DicePairImpl()
 	{
-		DieImpl die1 = new DieImpl(1, getRandomValue(), numFaces);
-		DieImpl die2 = new DieImpl(2, getRandomValue(), numFaces);
+		value1 = getRandomValue();
+		value2 = getRandomValue();
+		die1 = new DieImpl(1, value1, numFaces);
+		die2 = new DieImpl(2, value2, numFaces);
 	}
 	
 	public int getRandomValue()
@@ -16,33 +18,78 @@ public class DicePairImpl implements DicePair
 		return value;
 	}
 	@Override
-	public Die getDie1() {
-		// TODO Auto-generated method stub
-		return null;
+	public Die getDie1() 
+	{
+		return die1;
 	}
 
 	@Override
-	public Die getDie2() {
-		// TODO Auto-generated method stub
-		return null;
+	public Die getDie2() 
+	{
+		return die2;
 	}
 
 	@Override
-	public int getTotal() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getTotal() 
+	{
+		this.total = die1.getValue() + die2.getValue();
+		return this.total;
 	}
 
 	@Override
-	public boolean equals(DicePair dicePair) {
-		// TODO Auto-generated method stub
+	public boolean equals(DicePair dicePair) 
+	{
+		if(dicePair.getDie1().getValue() == value1)
+		{
+			if(dicePair.getDie2().getValue() == value2)
+			{
+				return true;
+			}
+
+		}
+		return false;
+	}
+	
+	public boolean equals(Object dicePair)
+	{
+		if(((DicePairImpl) dicePair).getDie1().getValue() == value1)
+		{
+			if(((DicePairImpl) dicePair).getDie2().getValue() == value2)
+			{
+				return true;
+			}
+
+		}
 		return false;
 	}
 
 	@Override
-	public int compareTo(DicePair dicePair) {
-		// TODO Auto-generated method stub
+	public int compareTo(DicePair dicePair) 
+	{
+		if(total < dicePair.getTotal())
+		{
+			return -1;
+		}
+		else if(total < dicePair.getTotal())
+		{
+			return 0;
+		}
+		else if(total > dicePair.getTotal())
+		{
+			return 1;
+		}
+		return total;
+	}
+	
+	@Override
+	public int hashCode()
+	{
 		return 0;
 	}
 	
+	@Override
+	public String toString()
+	{
+		return null;
+	}
 }
