@@ -9,21 +9,25 @@ public class DieImpl implements Die
 
 	public DieImpl(int number, int value, int numFaces) throws IllegalArgumentException
 	{
+		if(checkNumber(number) == 0|| checkValue(value, numFaces) == 0 || checkNumFaces(numFaces) == 0)
+		{
+			throw new IllegalArgumentException("Please input appropriate values for the die.");
+		}
 		this.number = checkNumber(number);
 		this.numFaces = checkNumFaces(numFaces);
 		this.value = checkValue(value, numFaces);
 	}
 	
-	public int checkNumber(int number)
+	private int checkNumber(int number)
 	{
-		if(number != 1 || number != 2)
+		if(number != 1 && number != 2)
 		{
 			return 0;
 		}
 		return number;
 	}
 	
-	public int checkNumFaces(int numFaces)
+	private int checkNumFaces(int numFaces)
 	{
 		if(numFaces != NUM_FACES)
 		{
@@ -32,7 +36,7 @@ public class DieImpl implements Die
 		return numFaces;
 	}
 	
-	public int checkValue(int value, int numFaces)
+	private int checkValue(int value, int numFaces)
 	{
 		if(value <= 1 && value >= NUM_FACES)
 		{
@@ -88,14 +92,17 @@ public class DieImpl implements Die
 	@Override
 	public int hashCode()
 	{
-		return hashCode();
+		int hash = 17;
+		hash = 31 * hash + value;
+		hash = 31 * hash + numFaces;
+		return hash;
 	}
 	
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%-20s %s\n", "Face Value:", convertValue(this.value)));
+		sb.append(String.format("%s %s\n", "Face Value:", convertValue(this.value)));
 		return sb.toString();
 	}
 	

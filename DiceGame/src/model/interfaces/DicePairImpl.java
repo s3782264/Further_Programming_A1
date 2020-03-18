@@ -4,6 +4,7 @@ public class DicePairImpl implements DicePair
 {
 	private int numFaces = 6, value1, value2, total;
 	private DieImpl die1, die2;
+	
 	public DicePairImpl()
 	{
 		value1 = getRandomValue();
@@ -50,6 +51,7 @@ public class DicePairImpl implements DicePair
 		return false;
 	}
 	
+	@Override
 	public boolean equals(Object dicePair)
 	{
 		if(((DicePairImpl) dicePair).getDie1().getValue() == value1)
@@ -84,12 +86,20 @@ public class DicePairImpl implements DicePair
 	@Override
 	public int hashCode()
 	{
-		return 0;
+		int hash = 17;
+		hash = 31 * hash + value1;
+		hash = 31 * hash + value2;
+		hash = 31 * hash + numFaces;
+		return hash;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("%s %s, ", "Dice 1:", die1.convertValue(die1.getValue())));
+		sb.append(String.format("%s %s .. ", "Dice 2:", die2.convertValue(die2.getValue())));
+		sb.append(String.format("%s %s ", "Total:", total));
+		return sb.toString();
 	}
 }
