@@ -1,8 +1,8 @@
 package client;
 
-import model.GameEngineImpl;
 import model.SimplePlayer;
 import model.interfaces.GameEngine;
+import model.interfaces.GameEngineImpl;
 import model.interfaces.Player;
 import validate.Validator;
 import view.GameEngineCallbackImpl;

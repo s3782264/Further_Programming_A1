@@ -1,6 +1,6 @@
 package testPackage;
 
-import model.interfaces.DieImpl;
+import model.DieImpl;
 
 public class TestDieImpl 
 {

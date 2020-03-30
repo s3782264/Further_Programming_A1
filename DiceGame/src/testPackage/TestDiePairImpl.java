@@ -1,6 +1,6 @@
 package testPackage;
 
-import model.interfaces.DicePairImpl;
+import model.DicePairImpl;
 
 public class TestDiePairImpl 
 {
