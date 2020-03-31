@@ -6,7 +6,7 @@ import model.interfaces.Die;
 public class DicePairImpl implements DicePair
 {
 	private int numFaces = 6, value1, value2, total;
-	private DieImpl die1, die2;
+	private Die die1, die2;
 	
 	public DicePairImpl()
 	{
@@ -16,7 +16,7 @@ public class DicePairImpl implements DicePair
 		die2 = new DieImpl(2, value2, numFaces);
 	}
 	
-	public int getRandomValue()
+	private int getRandomValue()
 	{
 		int value = (int) (Math.random() *(numFaces - 1) + 1);
 		return value;
@@ -100,8 +100,8 @@ public class DicePairImpl implements DicePair
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%s %s, ", "Dice 1:", die1.convertValue(die1.getValue())));
-		sb.append(String.format("%s %s .. ", "Dice 2:", die2.convertValue(die2.getValue())));
+		sb.append(String.format("%s %s, ", "Dice 1:", ((DieImpl) die1).convertValue(die1.getValue())));
+		sb.append(String.format("%s %s .. ", "Dice 2:", ((DieImpl) die2).convertValue(die2.getValue())));
 		sb.append(String.format("%s %s ", "Total:", total));
 		return sb.toString();
 	}

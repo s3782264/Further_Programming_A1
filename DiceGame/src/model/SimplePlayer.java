@@ -6,7 +6,7 @@ import model.interfaces.Player;
 public class SimplePlayer implements Player
 {
 	private String playerId, playerName;
-	private int initialPoints, bet, points;
+	private int initialPoints, bet, points, result;
 	
 	public SimplePlayer(String playerId, String playerName, int initialPoints) throws IllegalArgumentException 
 	{
@@ -50,6 +50,7 @@ public class SimplePlayer implements Player
 	{
 		if(bet > 0)
 		{
+			this.bet = bet;
 			return true;
 		}
 		return false;
@@ -76,18 +77,18 @@ public class SimplePlayer implements Player
 	@Override
 	public void setResult(DicePair rollResult) 
 	{
-		// TODO Auto-generated method stub
+		
 	}
 	
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%s %s", "Player: id=", playerId));
-		sb.append(String.format("%s %s", "name=", playerName));
-		sb.append(String.format("%s %s", "bet=", bet));
-		sb.append(String.format("%s %s", "points=", points));
-		sb.append(String.format("%s %s", "RESULTS.. Dice 1:", playerName));
+		sb.append(String.format("%s %s, ", "Player: id=", playerId));
+		sb.append(String.format("%s %s, ", "name=", playerName));
+		sb.append(String.format("%s %s, ", "bet=", bet));
+		sb.append(String.format("%s %s, ", "points=", points));
+		sb.append(String.format("%s %s", "RESULTS.. Dice 1:", result));
 
 		return sb.toString();
 	}
