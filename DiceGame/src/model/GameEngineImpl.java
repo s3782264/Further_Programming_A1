@@ -3,36 +3,55 @@ package model;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import client.SimpleTestClient;
 import model.interfaces.DicePair;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
+import view.GameEngineCallbackImpl;
 import view.interfaces.GameEngineCallback;
 
 public class GameEngineImpl implements GameEngine
 {
 
-	private ArrayList<Player> players = new ArrayList<Player>();	
+	private ArrayList<Player> players = new ArrayList<Player>();
+	private GameEngineCallback gameEngineCallback;
 	
 	@Override
 	public void rollPlayer(Player player, int initialDelay1, int finalDelay1, int delayIncrement1, int initialDelay2,
-			int finalDelay2, int delayIncrement2) 
+			int finalDelay2, int delayIncrement2)
 	{
-		// TODO Auto-generated method stub
+		parameterCheck(initialDelay1, finalDelay1, delayIncrement1, initialDelay2, finalDelay2, delayIncrement2);
+		
+		for(int i = initialDelay1; i <= finalDelay1; i = i+delayIncrement1)
+		{
+			DicePair d = new DicePairImpl();
+			gameEngineCallback.playerDieUpdate(player, d.getDie1(), this);
+			gameEngineCallback.playerDieUpdate(player, d.getDie2(), this);
+		}
 		
 	}
 
+	private void parameterCheck(int initialDelay1, int finalDelay1, int delayIncrement1, int initialDelay2,
+			int finalDelay2, int delayIncrement2)
+	{
+		if(initialDelay1 < 0 || initialDelay2 < 0 || finalDelay1 < 0 || finalDelay2 < 0 || delayIncrement1 < 0 
+				|| delayIncrement2 < 0 || finalDelay1 < initialDelay1 || finalDelay2 < initialDelay2
+				|| delayIncrement1 > (finalDelay1 - initialDelay1) || delayIncrement2 > (finalDelay2 - initialDelay2))
+		{
+			throw new IllegalArgumentException("Parameters are incorrect");
+		}
+	}
+	
 	@Override
 	public void rollHouse(int initialDelay1, int finalDelay1, int delayIncrement1, int initialDelay2, int finalDelay2,
 			int delayIncrement2) 
 	{
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void applyWinLoss(Player player, DicePair houseResult) 
 	{
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -53,10 +72,9 @@ public class GameEngineImpl implements GameEngine
 				}
 			}
 		}
-
 	}
 	
-	public boolean checkPlayerID(Player player)
+	private boolean checkPlayerID(Player player)
 	{
 		if(players!= null)
 		{
@@ -124,8 +142,7 @@ public class GameEngineImpl implements GameEngine
 	@Override
 	public void addGameEngineCallback(GameEngineCallback gameEngineCallback) 
 	{
-		// TODO Auto-generated method stub
-		
+		this.gameEngineCallback = gameEngineCallback;
 	}
 
 	@Override

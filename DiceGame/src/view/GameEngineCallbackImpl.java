@@ -1,5 +1,6 @@
 package view;
 
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +21,8 @@ import view.interfaces.GameEngineCallback;
 public class GameEngineCallbackImpl implements GameEngineCallback
 {
    private static final Logger logger = Logger.getLogger(GameEngineCallback.class.getName());
-
+   private static final Logger PARENT_LOGGER = Logger.getLogger("");
+   
    public GameEngineCallbackImpl()
    {
       // FINE shows rolling output, INFO only shows result
@@ -31,7 +33,8 @@ public class GameEngineCallbackImpl implements GameEngineCallback
    public void playerDieUpdate(Player player, Die die, GameEngine gameEngine)
    {
       // intermediate results logged at Level.FINE
-      logger.log(Level.FINE, "Intermediate data to log .. String.format() is good here!");
+      logger.log(Level.FINE, String.format("%s %s %s %s %s %s", "", " die ", " rolled to ", 
+    		  player.getPlayerName(), die.getNumber(), convertValue(die.getValue())));
       // TODO: complete this method to log results
    }
 
@@ -55,5 +58,50 @@ public class GameEngineCallbackImpl implements GameEngineCallback
 		
 	}
 
+	private String convertValue(int value)
+	{
+		String name = "";
+		if(value == 1)
+		{
+			name = "One";
+		}
+		else if(value == 2)
+		{
+			name = "Two";
+		}
+		else if(value == 3)
+		{
+			name = "Three";
+		}
+		else if(value == 4)
+		{
+			name = "Four";
+		}
+		else if(value == 5)
+		{
+			name = "Five";
+		}
+		else if(value == 6)
+		{
+			name = "Six";
+		}
+		else if(value == 7)
+		{
+			name = "Seven";
+		}
+		else if(value == 8)
+		{
+			name = "Eight";
+		}
+		else if(value == 9)
+		{
+			name = "Nine";
+		}
+		else if(value > 9)
+		{
+			name = "> Nine";
+		}
+		return name;
+	}
    // TODO implement rest of interface
 }

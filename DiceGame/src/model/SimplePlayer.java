@@ -7,6 +7,7 @@ public class SimplePlayer implements Player
 {
 	private String playerId, playerName;
 	private int initialPoints, bet, points, result;
+	private DicePair dicePair;
 	
 	public SimplePlayer(String playerId, String playerName, int initialPoints) throws IllegalArgumentException 
 	{
@@ -71,13 +72,13 @@ public class SimplePlayer implements Player
 	@Override
 	public DicePair getResult() 
 	{
-		return null;
+		return this.dicePair;
 	}
 
 	@Override
 	public void setResult(DicePair rollResult) 
 	{
-		
+		this.dicePair = rollResult;
 	}
 	
 	@Override
