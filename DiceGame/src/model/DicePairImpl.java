@@ -102,7 +102,7 @@ public class DicePairImpl implements DicePair
 		StringBuilder sb = new StringBuilder();
 		sb.append(String.format("%s %s, ", "Dice 1:", ((DieImpl) die1).convertValue(die1.getValue())));
 		sb.append(String.format("%s %s .. ", "Dice 2:", ((DieImpl) die2).convertValue(die2.getValue())));
-		sb.append(String.format("%s %s ", "Total:", total));
+		sb.append(String.format("%s %s ", "Total:", getTotal()));
 		return sb.toString();
 	}
 }

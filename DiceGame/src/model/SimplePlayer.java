@@ -85,11 +85,11 @@ public class SimplePlayer implements Player
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%s %s, ", "Player: id=", playerId));
-		sb.append(String.format("%s %s, ", "name=", playerName));
-		sb.append(String.format("%s %s, ", "bet=", bet));
-		sb.append(String.format("%s %s, ", "points=", points));
-		sb.append(String.format("%s %s", "RESULTS.. Dice 1:", result));
+		sb.append(String.format("%s %s, ", "Player: id=", getPlayerId()));
+		sb.append(String.format("%s %s, ", "name=", getPlayerName()));
+		sb.append(String.format("%s %s, ", "bet=", getBet()));
+		sb.append(String.format("%s %s, ", "points=", getPoints()));
+		sb.append(String.format("%s %s", "RESULTS.. Dice 1:", getResult()));
 
 		return sb.toString();
 	}

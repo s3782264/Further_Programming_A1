@@ -10,7 +10,8 @@ public class TestDieImpl
 		   DieImpl die = new DieImpl(1, 3, 6);
 		   
 		   //DieImpl die2 = new DieImpl(2,3,6);
-		   
+		   String name = "name";
+		   System.out.println(String.format("%s die %d rolled to %s" , name, die.getNumber(),die.convertValue(die.getValue())));
 		   System.out.println(die.toString());
 		   System.out.println(die.getNumber());
 		   System.out.println(die.getNumFaces());

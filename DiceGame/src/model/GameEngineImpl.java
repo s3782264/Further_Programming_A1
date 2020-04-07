@@ -15,22 +15,28 @@ public class GameEngineImpl implements GameEngine
 
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private GameEngineCallback gameEngineCallback;
-	
+	private DicePair dicePairHouse, dicePair;
+	private Player player;
 	@Override
 	public void rollPlayer(Player player, int initialDelay1, int finalDelay1, int delayIncrement1, int initialDelay2,
 			int finalDelay2, int delayIncrement2)
 	{
+		this.player = player;
 		parameterCheck(initialDelay1, finalDelay1, delayIncrement1, initialDelay2, finalDelay2, delayIncrement2);
 		
 		for(int i = initialDelay1; i <= finalDelay1; i = i+delayIncrement1)
 		{
-			DicePair d = new DicePairImpl();
-			gameEngineCallback.playerDieUpdate(player, d.getDie1(), this);
-			gameEngineCallback.playerDieUpdate(player, d.getDie2(), this);
+			dicePair = new DicePairImpl();
+			gameEngineCallback.playerDieUpdate(player, dicePair.getDie1(), this);
+			gameEngineCallback.playerDieUpdate(player, dicePair.getDie2(), this);
 		}
-		
+		player.setResult(dicePair);
+		gameEngineCallback.playerResult(player, dicePair, this);
 	}
 
+	/*
+	 * A check method used for rollplayer and rollhouse if the check fails throw an exception
+	 */
 	private void parameterCheck(int initialDelay1, int finalDelay1, int delayIncrement1, int initialDelay2,
 			int finalDelay2, int delayIncrement2)
 	{
@@ -46,13 +52,36 @@ public class GameEngineImpl implements GameEngine
 	public void rollHouse(int initialDelay1, int finalDelay1, int delayIncrement1, int initialDelay2, int finalDelay2,
 			int delayIncrement2) 
 	{
-		
+		parameterCheck(initialDelay1, finalDelay1, delayIncrement1, initialDelay2, finalDelay2, delayIncrement2);
+
+		for(int i = initialDelay1; i <= finalDelay1; i = i+delayIncrement1)
+		{
+			dicePairHouse = new DicePairImpl();
+			gameEngineCallback.houseDieUpdate(dicePair.getDie1(), this);
+			gameEngineCallback.houseDieUpdate(dicePair.getDie2(), this);
+		}
+		for(Player player : players)
+		{
+			applyWinLoss(player, dicePairHouse);
+		}
+		gameEngineCallback.houseResult(dicePairHouse, this);
+		for(Player player : players)
+		{
+			player.resetBet();
+		}
 	}
 
 	@Override
 	public void applyWinLoss(Player player, DicePair houseResult) 
 	{
-		
+		if(player.getResult().getTotal() > houseResult.getTotal())
+		{
+			player.setPoints(player.getBet()); 
+		}
+		else
+		{
+			player.setPoints(-player.getBet());
+		}
 	}
 
 	@Override
@@ -66,7 +95,7 @@ public class GameEngineImpl implements GameEngine
 		{
 			for(int i =0; i < players.size(); i++)
 			{
-				if(checkPlayerID(player)== false)
+				if(checkPlayerID(player, i)== false)
 				{
 					players.add(player);
 				}
@@ -74,16 +103,16 @@ public class GameEngineImpl implements GameEngine
 		}
 	}
 	
-	private boolean checkPlayerID(Player player)
+	/*
+	 * Method to check player id
+	 */
+	private boolean checkPlayerID(Player player, int i)
 	{
 		if(players!= null)
 		{
-			for(int i =0; i < players.size(); i++)
+			if(players.get(i).getPlayerId().equals(player.getPlayerId()))
 			{
-				if(players.get(i).getPlayerId().equals(player.getPlayerId()))
-				{
-					return true;
-				}
+				return true;
 			}
 		}
 		return false;
@@ -112,7 +141,7 @@ public class GameEngineImpl implements GameEngine
 		{
 			for(int i = 0; i < players.size(); i++)
 			{
-				if(checkPlayerID(player) == true)
+				if(checkPlayerID(player, i) == true)
 				{
 					players.remove(i);
 					return true;
@@ -129,7 +158,7 @@ public class GameEngineImpl implements GameEngine
 		{
 			for(int i = 0; i < players.size(); i++)
 			{
-				if(checkPlayerID(player)== true)
+				if(checkPlayerID(player, i)== true)
 				{
 					players.get(i).setBet(bet);
 					return true;
@@ -148,7 +177,15 @@ public class GameEngineImpl implements GameEngine
 	@Override
 	public boolean removeGameEngineCallback(GameEngineCallback gameEngineCallback) 
 	{
-		// TODO Auto-generated method stub
+		if(this.gameEngineCallback != null)
+		{
+			this.gameEngineCallback = null;
+			return true;
+		}
+		else if(this.gameEngineCallback == null)
+		{
+			return true;
+		}
 		return false;
 	}
 
