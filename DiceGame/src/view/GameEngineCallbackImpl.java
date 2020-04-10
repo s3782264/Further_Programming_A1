@@ -34,7 +34,7 @@ public class GameEngineCallbackImpl implements GameEngineCallback
    public void playerDieUpdate(Player player, Die die, GameEngine gameEngine)
    {
       // intermediate results logged at Level.FINE
-     logger.log(Level.INFO, String.format("%s die %d rolled to %s" , player.getPlayerName(), die.getNumber(), convertValue(die.getValue())));
+     logger.log(Level.FINE, String.format("%s die %d rolled to %s" , player.getPlayerName(), die.getNumber(), convertValue(die.getValue())));
       // TODO: complete this method to log results
    }
 
@@ -50,7 +50,7 @@ public class GameEngineCallbackImpl implements GameEngineCallback
 	@Override
 	public void houseDieUpdate(Die die, GameEngine gameEngine) 
 	{
-	     logger.log(Level.INFO, String.format("The House die %d rolled to %s" , die.getNumber(), convertValue(die.getValue())));
+	     logger.log(Level.FINE, String.format("The House die %d rolled to %s" , die.getNumber(), convertValue(die.getValue())));
 	}
 	
 	@Override
