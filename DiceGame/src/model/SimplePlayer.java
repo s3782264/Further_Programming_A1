@@ -89,7 +89,7 @@ public class SimplePlayer implements Player
 		sb.append(String.format("%s %s, ", "name=", getPlayerName()));
 		sb.append(String.format("%s %s, ", "bet=", getBet()));
 		sb.append(String.format("%s %s, ", "points=", getPoints()));
-		sb.append(String.format("%s %s", "RESULTS.. Dice 1:", getResult()));
+		sb.append(String.format("%s %s", "RESULT..", getResult()));
 
 		return sb.toString();
 	}
