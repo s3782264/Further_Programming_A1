@@ -3,6 +3,13 @@ package model;
 import model.interfaces.DicePair;
 import model.interfaces.Die;
 
+/**
+ * 
+ * Implemented class of DicePair
+ * 
+ * @author Angela Alviano
+ * 
+ */
 public class DicePairImpl implements DicePair
 {
 	private int numFaces = 6, value1, value2, total;

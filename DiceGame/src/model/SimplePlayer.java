@@ -3,6 +3,13 @@ package model;
 import model.interfaces.DicePair;
 import model.interfaces.Player;
 
+/**
+ * 
+ * Implemented class of Player
+ * 
+ * @author Angela Alviano
+ * 
+ */
 public class SimplePlayer implements Player
 {
 	private String playerId, playerName;

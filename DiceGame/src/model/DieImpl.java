@@ -2,6 +2,13 @@ package model;
 
 import model.interfaces.Die;
 
+/**
+ * 
+ * Implemented class of Die
+ * 
+ * @author Angela Alviano
+ * 
+ */
 public class DieImpl implements Die
 {
 	private int number;

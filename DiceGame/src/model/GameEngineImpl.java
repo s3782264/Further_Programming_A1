@@ -7,6 +7,13 @@ import model.interfaces.GameEngine;
 import model.interfaces.Player;
 import view.interfaces.GameEngineCallback;
 
+/**
+ * 
+ * Implemented class of GameEngine
+ * 
+ * @author Angela Alviano
+ * 
+ */
 public class GameEngineImpl implements GameEngine
 {
 
