@@ -5,7 +5,7 @@ import model.SimplePlayer;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
 
-public class testGameEngine 
+public class TestGameEngine 
 {
 	public static void main(String args[])
 	{

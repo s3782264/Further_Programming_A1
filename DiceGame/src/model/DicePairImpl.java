@@ -8,6 +8,9 @@ public class DicePairImpl implements DicePair
 	private int numFaces = 6, value1, value2, total;
 	private Die die1, die2;
 	
+	/*
+	 * A non parameter constructor that generates two Die objects
+	 */
 	public DicePairImpl()
 	{
 		value1 = getRandomValue();
@@ -16,11 +19,15 @@ public class DicePairImpl implements DicePair
 		die2 = new DieImpl(2, value2, numFaces);
 	}
 	
+	/*
+	 * Method to generate random int values from 1 to numFaces
+	 */
 	private int getRandomValue()
 	{
 		int value = (int) (Math.random() *(numFaces - 1) + 1);
 		return value;
 	}
+	
 	@Override
 	public Die getDie1() 
 	{

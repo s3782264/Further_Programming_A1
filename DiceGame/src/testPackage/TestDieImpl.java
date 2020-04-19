@@ -1,28 +1,35 @@
 package testPackage;
 
 import model.DieImpl;
+import model.interfaces.Die;
 
 public class TestDieImpl 
 {
-	   public static void main(String args[])
-	   {
-		   try {
-		   DieImpl die = new DieImpl(1, 3, 6);
-		   
-		   //DieImpl die2 = new DieImpl(2,3,6);
-		   String name = "name";
-		   System.out.println(String.format("%s die %d rolled to %s" , name, die.getNumber(),die.convertValue(die.getValue())));
-		   System.out.println(die.toString());
-		   System.out.println(die.getNumber());
-		   System.out.println(die.getNumFaces());
-		   System.out.println(die.getValue());
-		   //System.out.println(die.equals(die2));
-		   System.out.println(die.hashCode());
-		  //System.out.println(die2.hashCode());
-		   }catch(IllegalArgumentException e)
-		   {
-			   System.out.println(e.getMessage());
-		   }
-	   }
-
+	public void run()
+	{
+		try {
+			/*
+			 * Creating a die object
+			 */
+			Die die1 = new DieImpl(1, 3, 6);
+			Die die2 = new DieImpl(2,3,6);
+			/*
+			 * Testing return methods using die1
+			 */
+			System.out.println(die1.toString());
+			System.out.println(die1.getNumber());
+			System.out.println(die1.getNumFaces());
+			System.out.println(die1.getValue());
+			System.out.println(die1.hashCode());
+	
+			/*
+			 * Checking if both dies created are equal
+			 */
+			System.out.println(die1.equals(die2));
+		}
+		catch(IllegalArgumentException e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
 }

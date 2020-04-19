@@ -9,6 +9,9 @@ public class DieImpl implements Die
 	private int numFaces;
 	public static final int NUM_FACES = 6;
 
+	/*
+	 * Constructor to create a Die object
+	 */
 	public DieImpl(int number, int value, int numFaces) throws IllegalArgumentException
 	{
 		if(checkNumber(number) == 0|| checkValue(value, numFaces) == 0 || checkNumFaces(numFaces) == 0)
@@ -20,6 +23,10 @@ public class DieImpl implements Die
 		this.value = checkValue(value, numFaces);
 	}
 	
+	/*
+	 * A check method that returns 0 if number that is passed in does
+	 * not equal to 1 and 2
+	 */
 	private int checkNumber(int number)
 	{
 		if(number != 1 && number != 2)
@@ -29,6 +36,10 @@ public class DieImpl implements Die
 		return number;
 	}
 	
+	/*
+	 * A check method that returns 0 if numFaces passed in does
+	 * not equal to NUM_FACES
+	 */
 	private int checkNumFaces(int numFaces)
 	{
 		if(numFaces != NUM_FACES)
@@ -38,6 +49,10 @@ public class DieImpl implements Die
 		return numFaces;
 	}
 	
+	/*
+	 * A check method that returns 0 if the value if less than 1
+	 * and if it greater than NUM_FACES
+	 */
 	private int checkValue(int value, int numFaces)
 	{
 		if(value <= 1 && value >= NUM_FACES)
@@ -104,10 +119,14 @@ public class DieImpl implements Die
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%s %s\n", "Face Value:", convertValue(this.value)));
+		sb.append(String.format("%s %s", "Face Value:", convertValue(this.value)));
 		return sb.toString();
 	}
 	
+	/*
+	 * A method that converts and int value from 1-9 into a string and
+	 * returns that string
+	 */
 	public String convertValue(int value)
 	{
 		String name = "";

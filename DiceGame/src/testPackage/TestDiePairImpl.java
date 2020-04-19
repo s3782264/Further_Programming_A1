@@ -1,23 +1,42 @@
 package testPackage;
 
 import model.DicePairImpl;
+import model.interfaces.DicePair;
 
 public class TestDiePairImpl 
 {
-	   public static void main(String args[])
+	   public void run()
 	   {
-		   DicePairImpl dicePair = new DicePairImpl();
-		   DicePairImpl dicePair2 = new DicePairImpl();
+		   /*
+		    * Creating two DicePair objects
+		    */
+		   DicePair dicePair1 = new DicePairImpl();
+		   DicePair dicePair2 = new DicePairImpl();
 
-		   dicePair.getTotal();
+		   /*
+		    * Testing the return methods using dicePair1
+		    */
+		   System.out.println(dicePair1.getDie1());
+		   System.out.println(dicePair1.getDie2());
+		   System.out.println(dicePair1.getTotal());
+		   System.out.println(dicePair1.hashCode());
+		   /*
+		    * Testing the return methods using dicePair2
+		    */
+		   System.out.println(dicePair2.getDie1());
+		   System.out.println(dicePair2.getDie2());
+		   System.out.println(dicePair2.getTotal());
+		   System.out.println(dicePair2.hashCode());
 		   
-		   dicePair.equals(dicePair2);
-		   System.out.println(dicePair.toString());
-		   System.out.println(dicePair.equals(dicePair2));
+		   /*
+		    * Comparing both dicePair objects
+		    */
+		   System.out.println(dicePair1.compareTo(dicePair2));
 		   
-		   System.out.println(dicePair.hashCode());
-		   
-		   
+		   /*
+		    * Checking if the dicePair objects are equal
+		    */
+		   System.out.println(dicePair1.equals(dicePair2));
 	   }
 
 }

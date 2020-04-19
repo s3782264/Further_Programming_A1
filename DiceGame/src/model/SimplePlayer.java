@@ -9,6 +9,9 @@ public class SimplePlayer implements Player
 	private int initialPoints, bet, points, result;
 	private DicePair dicePair;
 	
+	/*
+	 * Constructor to create a SimplePlayer
+	 */
 	public SimplePlayer(String playerId, String playerName, int initialPoints) throws IllegalArgumentException 
 	{
 		this.initialPoints = initialPoints;
@@ -31,13 +34,13 @@ public class SimplePlayer implements Player
 	@Override
 	public int getPoints() 
 	{
-		return points;
+		return points+initialPoints;
 	}
 
 	@Override
 	public void setPoints(int points) 
 	{
-		this.points = points + this.initialPoints;
+		this.points+= points;
 	}
 
 	@Override
