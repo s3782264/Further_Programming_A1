@@ -2,12 +2,9 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import client.SimpleTestClient;
 import model.interfaces.DicePair;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
-import view.GameEngineCallbackImpl;
 import view.interfaces.GameEngineCallback;
 
 public class GameEngineImpl implements GameEngine
@@ -16,12 +13,10 @@ public class GameEngineImpl implements GameEngine
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private GameEngineCallback gameEngineCallback;
 	private DicePair dicePairHouse, dicePair;
-	private Player player;
 	@Override
 	public void rollPlayer(Player player, int initialDelay1, int finalDelay1, int delayIncrement1, int initialDelay2,
 			int finalDelay2, int delayIncrement2)
 	{
-		this.player = player;
 		parameterCheck(initialDelay1, finalDelay1, delayIncrement1, initialDelay2, finalDelay2, delayIncrement2);
 		
 		for(int i = initialDelay1; i <= finalDelay1; i = i+delayIncrement1)

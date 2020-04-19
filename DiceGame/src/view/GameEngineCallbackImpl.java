@@ -1,10 +1,7 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import model.interfaces.DicePair;
 import model.interfaces.Die;
 import model.interfaces.GameEngine;
@@ -62,7 +59,10 @@ public class GameEngineCallbackImpl implements GameEngineCallback
 			logger.log(Level.INFO, String.format("%s", player.toString()));
 		}
 	}
-	
+	/*
+	 * A method that converts and int value from 1-9 into a string and
+	 * returns that string
+	 */
 	private String convertValue(int value)
 	{
 		String name = "";

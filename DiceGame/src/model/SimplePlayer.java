@@ -6,7 +6,7 @@ import model.interfaces.Player;
 public class SimplePlayer implements Player
 {
 	private String playerId, playerName;
-	private int initialPoints, bet, points, result;
+	private int initialPoints, bet, points;
 	private DicePair dicePair;
 	
 	/*
