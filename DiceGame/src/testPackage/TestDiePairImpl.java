@@ -2,7 +2,13 @@ package testPackage;
 
 import model.DicePairImpl;
 import model.interfaces.DicePair;
-
+/**
+ * 
+ * Test class to test full functionality of DicePairImpl 
+ * 
+ * @author Angela Alviano
+ * 
+ */
 public class TestDiePairImpl 
 {
 	   public void run()

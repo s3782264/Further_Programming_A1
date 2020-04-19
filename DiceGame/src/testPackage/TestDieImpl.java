@@ -2,7 +2,13 @@ package testPackage;
 
 import model.DieImpl;
 import model.interfaces.Die;
-
+/**
+ * 
+ * Test class to test full functionality of DieImpl 
+ * 
+ * @author Angela Alviano
+ * 
+ */
 public class TestDieImpl 
 {
 	public void run()

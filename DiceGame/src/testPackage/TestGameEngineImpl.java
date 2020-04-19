@@ -5,10 +5,17 @@ import model.SimplePlayer;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
 import view.GameEngineCallbackImpl;
-
+/**
+ * 
+ * Test class to test full functionality of GameEngineImpl 
+ * as well as GameEngineCallback
+ * 
+ * @author Angela Alviano
+ * 
+ */
 public class TestGameEngineImpl 
 {
-	public static void main(String args[])
+	public void run()
 	{
 		GameEngine g = new GameEngineImpl();
 
@@ -36,7 +43,7 @@ public class TestGameEngineImpl
 		System.out.println(p2.getBet());
 		
 		/*
-		 * Player and house rolling 
+		 * Players and house rolling 
 		 * This tests GameEngineCallback as well as applyWinLoss method
 		 */
 		g.rollPlayer(p1, 100, 1000, 100, 50, 500, 50);

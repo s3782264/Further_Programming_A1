@@ -4,7 +4,13 @@ import model.DicePairImpl;
 import model.SimplePlayer;
 import model.interfaces.DicePair;
 import model.interfaces.Player;
-
+/**
+ * 
+ * Test class to test full functionality of SimplePlayer 
+ * 
+ * @author Angela Alviano
+ * 
+ */
 public class TestSimplePlayer 
 {
 	public void run()
