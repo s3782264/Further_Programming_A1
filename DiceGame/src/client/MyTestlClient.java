@@ -19,6 +19,9 @@ public class MyTestlClient {
 		System.out.printf("\nTESTING SIMPLEPLAYER\n");
 		TestSimplePlayer simplePlayerTest = new TestSimplePlayer();
 		simplePlayerTest.run();
+		
+		System.out.printf("\n TESTING GAMEENGINEIMPL AND GAMEENGINECALLBACKIMPL");
+		
 	}
 
 }
