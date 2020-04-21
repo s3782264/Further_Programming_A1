@@ -31,7 +31,7 @@ public class DicePairImpl implements DicePair
 	 */
 	private int getRandomValue()
 	{
-		int value = (int) (Math.random() *(numFaces - 1) + 1);
+		int value = (int) (Math.random() *(numFaces)+1);
 		return value;
 	}
 	

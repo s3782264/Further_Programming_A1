@@ -21,52 +21,53 @@ public class DieImpl implements Die
 	 */
 	public DieImpl(int number, int value, int numFaces) throws IllegalArgumentException
 	{
-		if(checkNumber(number) == 0|| checkValue(value, numFaces) == 0 || checkNumFaces(numFaces) == 0)
+		if(checkNumber(number) == false|| checkValue(value, numFaces) == false
+				|| checkNumFaces(numFaces) == false)
 		{
 			throw new IllegalArgumentException("Please input appropriate values for the die.");
 		}
-		this.number = checkNumber(number);
-		this.numFaces = checkNumFaces(numFaces);
-		this.value = checkValue(value, numFaces);
+		this.number = number;
+		this.numFaces = numFaces;
+		this.value = value;
 	}
 	
 	/*
-	 * A check method that returns 0 if number that is passed in does
-	 * not equal to 1 and 2
+	 * A check method that returns false if number that is passed in does
+	 * not equal to 1 and 2 otherwise returns true
 	 */
-	private int checkNumber(int number)
+	private boolean checkNumber(int number)
 	{
 		if(number != 1 && number != 2)
 		{
-			return 0;
+			return false;
 		}
-		return number;
+		return true;
 	}
 	
 	/*
-	 * A check method that returns 0 if numFaces passed in does
-	 * not equal to NUM_FACES
+	 * A check method that returns false if numFaces passed in does
+	 * not equal to NUM_FACES otherwise returns true
 	 */
-	private int checkNumFaces(int numFaces)
+	private boolean checkNumFaces(int numFaces)
 	{
 		if(numFaces != NUM_FACES)
 		{
-			return 0;
+			return false;
 		}
-		return numFaces;
+		return true;
 	}
 	
 	/*
-	 * A check method that returns 0 if the value if less than 1
-	 * and if it greater than NUM_FACES
+	 * A check method that returns false if the value if less than 1
+	 * and if it greater than NUM_FACES otherwise returns true
 	 */
-	private int checkValue(int value, int numFaces)
+	private boolean checkValue(int value, int numFaces)
 	{
 		if(value <= 1 && value >= NUM_FACES)
 		{
-			return 0;
+			return false;
 		}
-		return value;
+		return true;
 	}
 	
 	@Override
