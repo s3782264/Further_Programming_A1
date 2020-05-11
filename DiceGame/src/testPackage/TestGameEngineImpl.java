@@ -32,7 +32,7 @@ public class TestGameEngineImpl
 		g.addPlayer(p2);
 		System.out.println(g.getPlayer("1"));
 		System.out.println(g.getPlayer("2"));
-		
+		System.out.println(g.getAllPlayers());
 		/*
 		 * Players placing bets
 		 */

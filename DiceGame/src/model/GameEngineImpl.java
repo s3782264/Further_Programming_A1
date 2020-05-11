@@ -1,7 +1,10 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import model.interfaces.DicePair;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
@@ -17,23 +20,32 @@ import view.interfaces.GameEngineCallback;
 public class GameEngineImpl implements GameEngine
 {
 
-	private ArrayList<Player> players = new ArrayList<Player>();
-	private GameEngineCallback gameEngineCallback;
+	private final Map<String, Player> players = new HashMap<>();
+	private Collection<GameEngineCallback> callbacks = new HashSet<>();
 	private DicePair dicePairHouse, dicePair;
 	@Override
 	public void rollPlayer(Player player, int initialDelay1, int finalDelay1, int delayIncrement1, int initialDelay2,
 			int finalDelay2, int delayIncrement2)
 	{
 		parameterCheck(initialDelay1, finalDelay1, delayIncrement1, initialDelay2, finalDelay2, delayIncrement2);
-		
-		for(int i = initialDelay1; i <= finalDelay1; i = i+delayIncrement1)
+		int currentDelay = initialDelay1;
+		while(currentDelay < finalDelay1)
 		{
-			dicePair = new DicePairImpl();
-			gameEngineCallback.playerDieUpdate(player, dicePair.getDie1(), this);
-			gameEngineCallback.playerDieUpdate(player, dicePair.getDie2(), this);
+			for(GameEngineCallback cb : callbacks)
+			{	
+				dicePair = new DicePairImpl();
+				cb.playerDieUpdate(player, dicePair.getDie1(), this);
+				cb.playerDieUpdate(player, dicePair.getDie2(), this);
+				doDelay(currentDelay);
+			}
+			currentDelay += delayIncrement1;
 		}
 		player.setResult(dicePair);
-		gameEngineCallback.playerResult(player, dicePair, this);
+		for(GameEngineCallback cb : callbacks)
+		{
+			cb.playerResult(player, dicePair, this);
+
+		}
 	}
 
 	/*
@@ -50,24 +62,45 @@ public class GameEngineImpl implements GameEngine
 		}
 	}
 	
+	private void doDelay(int delay)
+	{
+		try
+		{
+			Thread.sleep(delay);
+		}
+		catch(InterruptedException e)
+		{
+			e.getMessage();
+		}
+	}
+	
 	@Override
 	public void rollHouse(int initialDelay1, int finalDelay1, int delayIncrement1, int initialDelay2, int finalDelay2,
 			int delayIncrement2) 
 	{
 		parameterCheck(initialDelay1, finalDelay1, delayIncrement1, initialDelay2, finalDelay2, delayIncrement2);
 
-		for(int i = initialDelay1; i <= finalDelay1; i = i+delayIncrement1)
+		int currentDelay = initialDelay1;
+		while(currentDelay < finalDelay1)
 		{
-			dicePairHouse = new DicePairImpl();
-			gameEngineCallback.houseDieUpdate(dicePair.getDie1(), this);
-			gameEngineCallback.houseDieUpdate(dicePair.getDie2(), this);
+			for(GameEngineCallback cb : callbacks)
+			{	
+				dicePairHouse = new DicePairImpl();
+				cb.houseDieUpdate(dicePair.getDie1(), this);
+				cb.houseDieUpdate(dicePair.getDie2(), this);
+				doDelay(currentDelay);
+			}
+			currentDelay += delayIncrement1;
 		}
-		for(Player player : players)
+		for(Player player : players.values())
 		{
 			applyWinLoss(player, dicePairHouse);
 		}
-		gameEngineCallback.houseResult(dicePairHouse, this);
-		for(Player player : players)
+		for(GameEngineCallback cb : callbacks)
+		{
+			cb.houseResult(dicePairHouse, this);
+		}
+		for(Player player : players.values())
 		{
 			player.resetBet();
 		}
@@ -76,125 +109,59 @@ public class GameEngineImpl implements GameEngine
 	@Override
 	public void applyWinLoss(Player player, DicePair houseResult) 
 	{
+		int points;
 		if(player.getResult().getTotal() > houseResult.getTotal())
 		{
-			player.setPoints(player.getBet()); 
+			points = player.getPoints()+ player.getBet();
+			player.setPoints(points); 
 		}
 		else
 		{
-			player.setPoints(-player.getBet());
+			points = (player.getPoints()-player.getBet());
+			player.setPoints(points);
 		}
 	}
 
 	@Override
 	public void addPlayer(Player player) 
 	{
-		if(players.size() == 0)
-		{
-			players.add(player);
-		}
-		else if(players.size() > 0)
-		{
-			for(int i =0; i < players.size(); i++)
-			{
-				if(checkPlayerID(player, i)== false)
-				{
-					players.add(player);
-				}
-			}
-		}
-	}
-	
-	/*
-	 * Method to check player id
-	 */
-	private boolean checkPlayerID(Player player, int i)
-	{
-		if(players!= null)
-		{
-			if(players.get(i).getPlayerId().equals(player.getPlayerId()))
-			{
-				return true;
-			}
-		}
-		return false;
+		players.put(player.getPlayerId(), player);
 	}
 	
 	@Override
 	public Player getPlayer(String id) 
 	{
-		if(players!=null)
-		{
-			for(int i = 0; i < players.size(); i++)
-			{
-				if(players.get(i).getPlayerId().equals(id))
-				{
-					return players.get(i);
-				}
-			}
-		}
-		return null;
+		return players.get(id);
 	}
 	
 	@Override
 	public boolean removePlayer(Player player) 
 	{
-		if(players!= null)
-		{
-			for(int i = 0; i < players.size(); i++)
-			{
-				if(checkPlayerID(player, i) == true)
-				{
-					players.remove(i);
-					return true;
-				}
-			}
-		}
-		return false;
+		return players.remove(player.getPlayerId())!=null;
 	}
 
 	@Override
 	public boolean placeBet(Player player, int bet) 
 	{
-		if(players!= null)
-		{
-			for(int i = 0; i < players.size(); i++)
-			{
-				if(checkPlayerID(player, i)== true)
-				{
-					players.get(i).setBet(bet);
-					return true;
-				}
-			}
-		}
-		return false;
+		return players.get(player.getPlayerId()).setBet(bet);
 	}
 
 	@Override
 	public void addGameEngineCallback(GameEngineCallback gameEngineCallback) 
 	{
-		this.gameEngineCallback = gameEngineCallback;
+		callbacks.add(gameEngineCallback);
 	}
 
 	@Override
 	public boolean removeGameEngineCallback(GameEngineCallback gameEngineCallback) 
 	{
-		if(this.gameEngineCallback != null)
-		{
-			this.gameEngineCallback = null;
-			return true;
-		}
-		else if(this.gameEngineCallback == null)
-		{
-			return true;
-		}
-		return false;
+		return callbacks.remove(gameEngineCallback);
 	}
 
 	@Override
 	public Collection<Player> getAllPlayers() 
 	{
-		return players;
+		return Collections.unmodifiableCollection(players.values());
 	}
 
 }

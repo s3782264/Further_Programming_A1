@@ -13,7 +13,7 @@ import model.interfaces.Player;
 public class SimplePlayer implements Player
 {
 	private String playerId, playerName;
-	private int initialPoints, bet, points;
+	private int initialPoints, bet, point;
 	private DicePair dicePair;
 	
 	/*
@@ -41,13 +41,13 @@ public class SimplePlayer implements Player
 	@Override
 	public int getPoints() 
 	{
-		return points+initialPoints;
+		return initialPoints;
 	}
-
+	
 	@Override
 	public void setPoints(int points) 
 	{
-		this.points+= points;
+		initialPoints = points;
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class SimplePlayer implements Player
 	@Override
 	public boolean setBet(int bet) 
 	{
-		if(bet > 0)
+		if(bet > 1 && bet < initialPoints)
 		{
 			this.bet = bet;
 			return true;
